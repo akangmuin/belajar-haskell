@@ -79,6 +79,7 @@ delete' n (x:xs) -- masukan n kepada [list] maka akan menegembalikan sisa list k
 -- perbedaan denga delete fungsi ini mengambil semua yang equal dengan "n"
 -- sementara delete' hanya mengambil di list pertama yang equal dgn  "n"
 
+deleteAll' :: Eq a => a -> [a] -> [a]
 deleteAll' _ [] = []
 deleteAll' n (x:xs)
   | n == x = deleteAll' n xs

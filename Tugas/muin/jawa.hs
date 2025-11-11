@@ -51,7 +51,23 @@ snd' (a,b) = b
 
 -- returning secong item from the tuples
 -- Difficulty: Hard
-map' x = x
+
+map' :: (a -> b) -> [a] -> [b] -- map' menerima dua argumen:  fungsi dari tipe a -> b  list berisi elemen bertipe a dan hasilnya:  list baru berisi elemen bertipe b.
+map' _ [] = [] -- Kalau list yang masuk kosong ([]), yaudah hasilnya juga kosong.
+map' f (x:xs) = f x : map' f xs -- Ambil fungsi f, terapkan ke elemen pertama x. hasilnya f x, terus panggil lagi map' untuk sisa list xs.
+-- abis itu gabungin hasil fx ke sisa list  ( fx : map' f xs) 
+-- CONTOH:
+-- map' (*2) [1,2,3]
+-- = (*2) 1 : map' (*2) [2,3] 
+-- = 2 : map' (*2) [2,3]
+-- = 2 : ((*2) 2 : map' (*2) [3])
+-- = 2 : (4 : map' (*2) [3])
+-- = 2 : (4 : ((*2) 3 : map' (*2) []))
+-- = 2 : (4 : (6 : []))
+-- = [2,4,6]
+
+-- 
+
 
 --pembatas
 
@@ -63,17 +79,25 @@ filter' x = x
 -- Difficulty: Medium
 delete' :: Eq a => a -> [a] -> [a]
 delete' _ [] = []
-delete' n (x:xs) -- 
+delete' n (x:xs) 
     | n == x = xs -- if the n = head of the list "x" then return rest of the list
-    | otherwise x : delete' n xs -- else return the tail
+    | otherwise = x : delete' n xs -- else return the tail
+-- pemabtas 
 
---pembatas
+deleteAll' :: Eq a => a -> [a] -> [a]
+deleteAll' _ [] = []
+deleteAll' n (x:xs)
+  | n == x = deleteAll' n xs
+  | otherwise = x : deleteAll' n xs
 
--- Difficulty: Medium
---deleteAll' x = x --
-
---pembatas
-
+--deletAll' masukan apapun kalau list kosong maka kosong
+-- deletall' masukan "n" ke dalam list yang harus ada  "n" maka
+-- | n == x = deleteAll' n xs yang artinya n harus sama dengan elemen yang ada di List
+-- jika ya maka akan secara recursive dipanggil ke sisa list (xs)
+-- jika tidak match maka n akan dipanggil ke sisa list (lagi)
+-- perbedaan denga delete fungsi ini mengambil semua yang equal dengan "n"
+-- sementara delete' hanya mengambil di list pertama yang equal dgn  "n"
+--
 -- Difficulty: Hard
 foldl' x = x
 
