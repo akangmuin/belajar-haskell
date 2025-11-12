@@ -75,10 +75,15 @@ map' f (x:xs) = f x : map' f xs -- Ambil fungsi f, terapkan ke elemen pertama x.
 filter' :: (a -> Bool) -> [a] -> [a]
 filter' _ [] = [] -- Jika list input kosong, hasilnya pasti list kosong.
 filter' f (x:xs) 
-  | f x = x :filter' f xs -- Jika anuan (f) True pada elemen 'x', masukkan 'x' ke output dan lanjut rekursi.
+  | f x = x : filter' f xs -- Jika anuan (f) = True pada elemen 'x', masukkan 'x' ke output dan lanjut rekursi.
   |otherwise = filter' f xs --Jika predikat False, buang 'x' dan lanjut rekursi pada sisa list.
 -- note: f bisa berupa >, <, =  atau simpel Int
-
+-- contoh filter' (>2) [1,2,4]
+-- berarti dicari >2 di [1] : [2,4]
+-- [1] false berarti hilang
+-- lanjut filter' [2]:[4]
+-- [2] dan [4] masuk
+-- jadi hasilnya akn [2,4]\
 --pembatas
 
 -- Difficulty: Medium
