@@ -72,14 +72,19 @@ map' f (x:xs) = f x : map' f xs -- Ambil fungsi f, terapkan ke elemen pertama x.
 --pembatas
 
 -- Difficulty: Hard
-filter' x = x
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' _ [] = [] -- Jika list input kosong, hasilnya pasti list kosong.
+filter' f (x:xs) 
+  | f x = x :filter' f xs -- Jika anuan (f) True pada elemen 'x', masukkan 'x' ke output dan lanjut rekursi.
+  |otherwise = filter' f xs --Jika predikat False, buang 'x' dan lanjut rekursi pada sisa list.
+-- note: f bisa berupa >, <, =  atau simpel Int
 
 --pembatas
 
 -- Difficulty: Medium
 delete' :: Eq a => a -> [a] -> [a]
 delete' _ [] = []
-delete' n (x:xs) 
+delete' n (x:xs)
     | n == x = xs -- if the n = head of the list "x" then return rest of the list
     | otherwise = x : delete' n xs -- else return the tail
 -- pemabtas 
@@ -266,8 +271,8 @@ nub' x = x
 
 --pembatas
 
-sort' x = x
-
+sort' :: Ord a => [a] -> [a]
+sort' xs = map (\ x -> x) xs
 --pembatas
 
 minimum' x = x
