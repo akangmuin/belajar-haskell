@@ -66,8 +66,6 @@ map' f (x:xs) = f x : map' f xs -- Ambil fungsi f, terapkan ke elemen pertama x.
 -- = 2 : (4 : (6 : []))
 -- = [2,4,6]
 
--- 
-
 
 --pembatas
 
@@ -77,13 +75,13 @@ filter' _ [] = [] -- Jika list input kosong, hasilnya pasti list kosong.
 filter' f (x:xs) 
   | f x = x : filter' f xs -- Jika anuan (f) = True pada elemen 'x', masukkan 'x' ke output dan lanjut rekursi.
   |otherwise = filter' f xs --Jika predikat False, buang 'x' dan lanjut rekursi pada sisa list.
--- note: f bisa berupa >, <, =  atau simpel Int
+-- note: f bisa berupa >, <, =  diikuti Int biasanay (nanti cek dokumentasi dah)
 -- contoh filter' (>2) [1,2,4]
 -- berarti dicari >2 di [1] : [2,4]
 -- [1] false berarti hilang
 -- lanjut filter' [2]:[4]
 -- [2] dan [4] masuk
--- jadi hasilnya akn [2,4]\
+-- jadi hasilnya akn [2,4]
 --pembatas
 
 -- Difficulty: Medium
@@ -159,23 +157,31 @@ head' x = x
 --pembatas
 
 -- Difficulty: Medium
-length' x = x
+length' :: [a] -> Int -- aslinya mah length' :: Foldable t => t a -> Int, diganti jadi list yang menghasilkan Int
+length' [] = 0 --base case 
+length' (_:xs) = 1 + length' xs -- jikalau ada isinya ya tinggal ditambah satu + sampai ujung list
 
 --pembatas
 
 -- Difficulty: Medium
-reverse' x = x
+reverse' :: [a] -> [a] 
+reverse' [] = [] -- kosong ya kosong seperti biasa
+reverse' (x:xs) = reverse' xs ++ [x] -- bongkar list pala dan tail, jadikan tail ++ list kepala, (Hasil Balikan Ekor) ++ [Si Kepala]
 
 --pembatas
 
 -- Difficulty: Very Easy
-last' x = x
+last' :: [a] -> a
+last' [] = error "List kosong anjay"
+last' [x] = x -- ini adalah kiblat si last jika sisa satu doang list nya yaudah berenti itu hasilnya bang
+last' (_:xs) = last' xs -- appaun pala nya kalau masih ada sisa oper aja ke xs, nanti di cek terus sampe nemu [x] = x
 
 --pembatas
 
 -- Difficulty: Very Easy
-tail' x = x
-
+tail' :: [a] -> [a]
+tail' [] = error "List kosong ga punya buntut, bos!"
+tail' (x:xs) = xs -- ambil kode buntut
 --pembatas
 
 -- Difficulty: Very Easy
@@ -276,9 +282,7 @@ nub' x = x
 
 --pembatas
 
-sort' :: Ord a => [a] -> [a]
-sort' xs = map (\ x -> x) xs
---pembatas
+sort' x=x
 
 minimum' x = x
 
