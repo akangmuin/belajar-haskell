@@ -185,7 +185,19 @@ tail' (x:xs) = xs -- ambil kode buntut
 --pembatas
 
 -- Difficulty: Very Easy
-init' x = x
+init' :: [a] -> [a]
+init' [] = []
+init' [x] = [] -- -- Base Case: sisa satu? habisin! Jadi []
+init' (x:xs) = x: init' xs -- rekursi di sini, simpan depan, proses belakang -- "Visualisasi Jalanin init' [1, 2, 3]
+    -- CONTOH:
+--Cek [1, 2, 3]: Simpan 1. gabung dengan hasil init' [2, 3]. rumus: 1 : (hasil nanti) Cek [2, 3]:
+--Simpan 2. ++ dengan hasil init' [3].
+--Rumus: 1 : (2 : (hasil nanti))
+--Cek [3]:Apakah cuma satu? YA!
+--Balikin []. (inilah saatnya si 3 dieksekusi mati).
+--Susun Balik:
+--1 : (2 : [])
+--Jadinya: [1, 2] 
 
 --pembatas
 
