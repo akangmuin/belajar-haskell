@@ -107,7 +107,10 @@ deleteAll' n (x:xs)
 -- sementara delete' hanya mengambil di list pertama yang equal dgn  "n"
 --
 -- Difficulty: Hard
-foldl' x = x
+myFoldl :: (b -> a -> b) -> b -> [a] -> b
+myFoldl f anu []     = anu -- kalau kosong balikin value anuan sebelumnya
+myFoldl f anu (x:xs) = myFoldl f (f anu x) xs 
+---- 2. Update acc dulu, baru jalan lagi
 
 --pembatas
 
