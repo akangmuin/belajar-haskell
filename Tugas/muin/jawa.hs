@@ -107,15 +107,25 @@ deleteAll' n (x:xs)
 -- sementara delete' hanya mengambil di list pertama yang equal dgn  "n"
 --
 -- Difficulty: Hard
-myFoldl :: (b -> a -> b) -> b -> [a] -> b
-myFoldl f anu []     = anu -- kalau kosong balikin value anuan sebelumnya
-myFoldl f anu (x:xs) = myFoldl f (f anu x) xs 
----- 2. Update acc dulu, baru jalan lagi
+myFoldl' :: (b -> a -> b) -> b -> [a] -> b
+myFoldl' f anu []     = anu -- kalau kosong balikin value anuan sebelumnya
+myFoldl' f anu (x:xs) = myFoldl' f (f anu x) xs 
+---- 2. Update anu dulu, baru jalan lagi CONTOH:
+-- foldl (+) 0 [1,2,3,4]
+-- = foldl (+) (0+1) [2,3,4]
+-- = foldl (+) ((0+1)+2) [3,4]
+-- = foldl (+) (((0+1)+2)+3) [4]
+-- = foldl (+) ((((0+1)+2)+3)+4) []
+-- = ((((0+1)+2)+3)+4)
+--  = 10
 
 --pembatas
 
 -- Difficulty: Hard
-foldl1' x = x
+foldl1' :: (a -> a -> a) -> [a] -> a
+foldl1' _ []     = error " empty list"
+foldl1' f [x]    = x  -- Single element list (ini pembeda dari foldl biasa)
+foldl1' f (x:xs) = foldl' f x xs  -- pake x as initial accumulator
 
 --pembatas
 
@@ -335,7 +345,9 @@ partition' x = x
 
 --pembatas
 
-replicate' x = x
+replicate' :: Int -> a -> [a]
+replicate' 0 _ = []
+replicate' n x = x : replicate' (n-1) x
 
 --pembatas
 -- First Assignment
