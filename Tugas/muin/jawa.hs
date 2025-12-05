@@ -130,17 +130,40 @@ foldl1' f (x:xs) = foldl' f x xs  -- pake x as initial accumulator
 --pembatas
 
 -- Difficulty: Medium
-zip' x = x
+zip' :: [a] -> [b] -> [(a, b)]
+zip' [] _ = []  -- Base case 1: First list empty
+zip' _ [] = []  -- Base case 2: Second list empty
+zip' (x:xs) (y:ys) = (x, y) : zip' xs ys  -- Recursive case
+-- contoh recursive nya
+-- zip' [1,2,3] ["a","b","c"]
+-- = (1, "a") : zip' [2,3] ["b","c"]
+-- = (1, "a") : (2, "b") : zip' [3] ["c"]
+-- = (1, "a") : (2, "b") : (3, "c") : zip' [] []
+-- = (1, "a") : (2, "b") : (3, "c") : []
+-- = [(1,"a"), (2,"b"), (3,"c")]
 
 --pembatas
 
 -- Difficulty: Hard
-zipWith' x = x
+zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith' _ [] _ = []  -- Base case 1
+zipWith' _ _ [] = []  -- Base case 2
+zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys  -- Recursive case
+
+-- sama kayak zip' cuman di sini dia pake fucntion (f)
+-- step rekurtisve nya :
+    -- masukin function ke heads: -> f x y
+    -- Recursive ke tail nya : -> zipWith' f xs ys
 
 --pembatas
 
 -- Difficulty: Easy
-nth' x = x
+nth' :: [a] -> Int -> a -- ambil list [a] dan Int
+nth' [] _ = error "bakal gede banget oi"
+nth' (x:xs) n
+    | n < 0     = error "anuan tida bole negatip" --Guard 1: Negative Index
+    | n == 0    = x -- Guard 2: ini elemen kita
+    | otherwise = nth' xs (n-1) -- Guard 3: lanjutkan pencarian
 
 --pembatas
 
